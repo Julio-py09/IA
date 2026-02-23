@@ -1,7 +1,9 @@
+import random
+
 cola = []
 visitados = []
-nodo = 0
-solucion = 4
+nodo_raiz = 21
+solucion = random.randint(0, 24)
 grafo={
     0:[1,2],
     1:[0,3,4],
@@ -30,15 +32,21 @@ grafo={
     24:[14]
 }
 
-cola = [0]
-while len(cola) > 0:
-    nodo = cola.pop()
+print(f"Nodo a buscar: {solucion}")
+print(f"Nodo raíz: {nodo_raiz}")
+
+cola.append(nodo_raiz)
+for nodo in cola:
     if nodo == solucion:
-        print(nodo)
+        print(f"Objetivo alcanzado: {nodo}")
         break
-    else:
-        visitados.append(nodo)
-        for hijos_grafo in grafo[nodo]:
-            if hijos_grafo not in visitados:
-                visitados.append(hijos_grafo)
-                cola.append(hijos_grafo)
+    else: 
+        if nodo not in visitados:
+            visitados.append(nodo)
+            for conexion in grafo[nodo]:
+                if conexion not in visitados and conexion not in cola:
+                    cola.append(conexion)
+        print(f"Cola de espera{cola}")
+        print(f"Historial de visitados: {visitados}\n")
+
+Ya funciona como debe
